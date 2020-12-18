@@ -10,7 +10,7 @@ yarn add @airport-discovery/metars-tafs
 
 ## Usage
 
-The module exposes a two main functions, which accept an ICAO string or an array string of ICAOs
+The module exposes two main functions, which accept an ICAO string or an array string of ICAOs
 
 ## `METARs`
 
