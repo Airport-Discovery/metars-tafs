@@ -1,6 +1,6 @@
 {
   "name": "@airport-discovery/metars-tafs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Get latest METARs and TAFs by ICAO code",
   "main": "index.js",
   "scripts": {
