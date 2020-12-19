@@ -74,27 +74,37 @@ const metars = async icaos => {
   return undefined;
 };
 
+const getSingleForecast = forcst => {
+  return {
+    timeFrom: forcst.fcst_time_from,
+    timeTo: forcst.fcst_time_to,
+    changeIndicator: forcst.change_indicator,
+    timeBecoming: forcst.time_becoming,
+    wind: {
+      directinDegrees: forcst.wind_dir_degrees,
+      speedKt: forcst.wind_speed_kt
+    },
+    visibilityStatuteMi: forcst.visibility_statute_mi,
+    wxString: forcst.wx_string,
+    skyCondition: forcst.sky_condition
+      ? {
+          skyCover: forcst.sky_condition.sky_cover,
+          cloudBaseFtAgl: forcst.sky_condition.cloud_base_ft_agl
+        }
+      : undefined
+  };
+};
+
 const getSingleTaf = taf => {
-  const forecast = taf.forecast
-    ? taf.forecast.map(forcst => ({
-        timeFrom: forcst.fcst_time_from,
-        timeTo: forcst.fcst_time_to,
-        changeIndicator: forcst.change_indicator,
-        timeBecoming: forcst.time_becoming,
-        wind: {
-          directinDegrees: forcst.wind_dir_degrees,
-          speedKt: forcst.wind_speed_kt
-        },
-        visibilityStatuteMi: forcst.visibility_statute_mi,
-        wxString: forcst.wx_string,
-        skyCondition: forcst.sky_condition
-          ? {
-              skyCover: forcst.sky_condition.sky_cover,
-              cloudBaseFtAgl: forcst.sky_condition.cloud_base_ft_agl
-            }
-          : undefined
-      }))
-    : [];
+  let forecast;
+
+  if (taf.forecast) {
+    if (Array.isArray(taf.forecast)) {
+      forecast = taf.forecast.map(forcst => getSingleForecast(forcst));
+    } else {
+      forecast = getSingleForecast(taf.forecast);
+    }
+  }
 
   return {
     stationId: taf.station_id,
