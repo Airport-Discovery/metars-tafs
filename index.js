@@ -8,7 +8,7 @@ const METARS_SERVICE = 'metars';
 const TAFS_SERVICE = 'tafs';
 
 const getSingleMetar = metar => ({
-  stationId: metar.stationId,
+  stationId: metar.station_Id,
   rawText: metar.raw_text,
   observationTime: metar.observationTime,
   latitude: metar.latitude,
